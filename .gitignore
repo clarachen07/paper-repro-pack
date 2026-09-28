@@ -1,0 +1,10 @@
+# ZCode session scaffolding: downloaded papers, LaTeX source, cloned repos
+repro-*/
+
+# ZCode workspace internals
+.zcode/
+
+# OS / Python noise
+.DS_Store
+__pycache__/
+*.pyc
