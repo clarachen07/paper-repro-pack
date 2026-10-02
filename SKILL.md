@@ -1,15 +1,15 @@
 ---
-name: paper-repro-pack
-description: 把一篇论文整理成完整的复现包（paper reproduction package）：提取作者做过的每一个实验以及严格复现所需的全部细节——数据、实验设置、超参数、结果、结论——并按关键程度排序；再找到并逐一核实官方代码、模型 checkpoint 和数据集，深入审查官方仓库。用户发来论文（paper，PDF 路径或 arXiv 链接）并提到实验、复现、复现报告、reproduce、replication、reproduction、ablation、实验设置、代码/数据集/模型是否公开，或想重跑一篇论文的所有实验时使用——哪怕只是丢来一篇论文说"帮我准备复现"。
+name: paper-repro-report
+description: 把一篇论文整理成一份中文为主的完整复现报告（paper reproduction report）：提取作者做过的每一个实验以及严格复现所需的全部细节——数据、实验设置、超参数、结果、结论——并按关键程度排序；再找到并逐一核实官方代码、模型 checkpoint 和数据集，深入审查官方仓库。用户发来论文（paper，PDF 路径或 arXiv 链接）并提到实验、复现、复现报告、reproduce、replication、reproduction、ablation、实验设置、代码/数据集/模型是否公开，或想重跑一篇论文的所有实验时使用——哪怕只是丢来一篇论文说"帮我准备复现"。
 license: MIT. See LICENSE
 metadata:
   author: clarachen07
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
-# Paper Reproduction Package
+# Paper Reproduction Report
 
-Produce everything a reader needs to strictly reproduce a paper's experiments, delivered as ONE bilingual Markdown report (Chinese executive summary + English body). Complete, but not bloated: critical experiments get full detail cards; secondary ones get compact rows.
+Produce everything a reader needs to strictly reproduce a paper's experiments, delivered as ONE Markdown report written in Chinese — proper nouns, transcribed numbers, and code paths stay in their original form. Complete, but not bloated: critical experiments get full detail cards; secondary ones get compact rows.
 
 ## Input handling
 
@@ -52,7 +52,7 @@ Write `./repro-report-<paper-id>.md` following `references/report-template.md`. 
 1. Every inventory row is covered in the report body.
 2. Every reported number and setting carries an anchor.
 3. Every reported link was fetched this run.
-4. Section 0 (中文摘要) exists and is in Chinese; each critical card ends with a Chinese 要点.
+4. The whole report is in Chinese (terms/numbers in original form); §0 is one dense 300–500 字 paragraph; every critical card ends with a one-line 要点.
 5. Nothing in the report contradicts the paper; uncertainties are flagged, not papered over.
 
 ## Non-negotiables
@@ -60,5 +60,5 @@ Write `./repro-report-<paper-id>.md` following `references/report-template.md`. 
 - **Never invent.** Every value comes from the paper or the official repo, with an anchor (`§4.2`, `Table 3`, `configs/sst2.yaml`). Mark provenance inline: `[paper]`, `[repo]`, `[inferred]`.
 - **Missing ≠ omit.** Information the paper doesn't give goes to the gap checklist, not into a guess.
 - **Verify, then claim.** A resource counts as available only after you fetched its link during this run.
-- **Bilingual as specified.** Section 0 in Chinese; body in English; one-line Chinese takeaway per critical card. Do not duplicate the whole body in Chinese.
+- **Chinese-first as specified.** Write the whole report in Chinese; keep proper nouns, dataset/metric names, hyperparameters, transcribed numbers, and code/config paths in their original form (attach the English term in parentheses on first occurrence when helpful). Each critical card ends with a one-line 要点.
 - **Complete but not bloated.** Distill, don't restate. A results table with 40 rows: transcribe the rows that carry the claim and cite the table for the rest. A hyperparameter table: transcribe in FULL — selective HP transcription is how reproductions silently break (see `references/extraction.md`).

@@ -29,7 +29,7 @@ import zipfile
 from pathlib import Path
 from typing import Optional
 
-HEADERS = {"User-Agent": "paper-repro-pack/1.0 (personal research helper)"}
+HEADERS = {"User-Agent": "paper-repro-report/1.2 (personal research helper)"}
 
 
 def parse_arxiv_id(raw: str) -> str:

@@ -1,14 +1,14 @@
 [中文](./README.md) · English
 
-# 📦 paper-repro-pack
+# 📦 paper-repro-report
 
-#### Turn a paper into a ready-to-reproduce package: every experiment, every detail, verified official resources, and an explicit gap list — in one Markdown report
+#### Turn a paper into a Chinese-first, ready-to-reproduce report: every experiment, every detail, verified official resources, and an explicit gap list — in one Markdown file
 
 [![License](https://img.shields.io/badge/License-MIT-3B82F6?style=for-the-badge)](./LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Standard-Agent%20Skills-8B5CF6?style=for-the-badge)](https://agentskills.io)
 [![Compatible](https://img.shields.io/badge/Compatible-40%2B%20Agents-10B981?style=for-the-badge)](https://agentskills.io)
 
-An open [Agent Skill](https://agentskills.io): hand it a paper (PDF path or arXiv link) and it gives back everything you would need to re-run the paper's experiments — plus an explicit list of everything the paper *fails* to tell you.
+An open [Agent Skill](https://agentskills.io): hand it a paper (PDF path or arXiv link) and it gives back a Chinese-first Markdown reproduction report containing everything you would need to re-run the paper's experiments — plus an explicit list of everything the paper *fails* to tell you (proper nouns, transcribed numbers, and code paths stay in their original form).
 
 ## What it does
 
@@ -21,7 +21,7 @@ The skill runs six phases on a paper:
 5. **Gap analysis** — lists everything strict reproduction needs that the paper does not provide (seeds, hardware, prompt templates…), each with a suggestion of where to recover it.
 6. **Compose** — writes one self-checked Markdown report.
 
-Every number carries an anchor (`[paper Table 2]`, `[repo configs/x.yaml]`, `[inferred]`) and every resource gets a status label: ✅ public / ⚠️ restricted / 🔗 third-party / ❌ not found.
+Every number carries an anchor (`[paper Table 2]`, `[repo configs/x.yaml]`, `[inferred]`) and every resource gets a status label: ✅ public / ⚠️ restricted / 🔗 third-party / ❌ not found. The whole report is written in Chinese; proper nouns and transcribed numbers stay in their original form.
 
 ## Report structure
 
@@ -29,7 +29,7 @@ Every number carries an anchor (`[paper Table 2]`, `[repo configs/x.yaml]`, `[in
 |---|---|
 | 0. 中文摘要 | Chinese executive summary (~300–500 字): what the paper does, headline results, resource availability, repro risks |
 | 1. Experiment Inventory | every experiment, one row, ranked by criticality |
-| 2. Critical Experiments | full detail cards with exact transcribed numbers + one-line Chinese takeaway |
+| 2. Critical Experiments | full detail cards with exact transcribed numbers + one-line 要点 takeaway |
 | 3. Secondary & Supplementary | compact rows for ablations and appendix studies |
 | 4. Reproduction Settings Summary | all hyperparameters (appendix tables transcribed in full), environment, compute budget, verbatim artifacts |
 | 5. Resources & Availability | verified links + repo deep-dive findings |
@@ -64,7 +64,7 @@ The report lands at `./repro-report-<paper-id>.md`; intermediate artifacts (down
 In any Agent-Skills-capable agent (Claude Code, Codex, Cursor, Gemini CLI, ZCode, and 40+ more), just say:
 
 ```
-Install this skill for me: https://github.com/clarachen07/paper-repro-pack
+Install this skill for me: https://github.com/clarachen07/paper-repro-report
 ```
 
 The agent clones the repo into its own skills directory (`~/.claude/skills/`, `~/.codex/skills/`, `~/.agents/skills/`…) — no paths to memorize.
@@ -76,7 +76,7 @@ Your agent doesn't support Skills? Clone the repo and hand it [SKILL.md](SKILL.m
 ### Option 3: skills CLI (advanced)
 
 ```bash
-npx skills add clarachen07/paper-repro-pack
+npx skills add clarachen07/paper-repro-report
 ```
 
 One line, installed to every agent detected on your machine.
@@ -97,7 +97,7 @@ One line, installed to every agent detected on your machine.
 
 ## Notes & limitations
 
-- The skill **prepares** the reproduction package; it does not run experiments or download datasets/models themselves.
+- The skill **prepares** the reproduction report; it does not run experiments or download datasets/models themselves.
 - Link verification is point-in-time — the report records the date every link was checked.
 - No values are ever invented: anything the paper doesn't state ends up in the gap checklist, not in a guess.
 
