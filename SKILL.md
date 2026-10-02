@@ -1,6 +1,10 @@
 ---
 name: paper-repro-pack
-description: Build a complete paper reproduction package — extract every experiment the authors ran with all details strict reproduction needs (data, setup, hyperparameters, results, conclusions), rank the critical ones, then locate and verify official code, model checkpoints and datasets, including a deep dive into the official repository. Use whenever the user sends a paper (PDF path or arXiv link) and mentions experiments, reproduction, 复现, replication, ablations, experimental setup, code/dataset/model availability, or wants everything needed to re-run a paper — even if they just hand over a paper and say "prepare this for me".
+description: 把一篇论文整理成完整的复现包（paper reproduction package）：提取作者做过的每一个实验以及严格复现所需的全部细节——数据、实验设置、超参数、结果、结论——并按关键程度排序；再找到并逐一核实官方代码、模型 checkpoint 和数据集，深入审查官方仓库。用户发来论文（paper，PDF 路径或 arXiv 链接）并提到实验、复现、复现报告、reproduce、replication、reproduction、ablation、实验设置、代码/数据集/模型是否公开，或想重跑一篇论文的所有实验时使用——哪怕只是丢来一篇论文说"帮我准备复现"。
+license: MIT. See LICENSE
+metadata:
+  author: clarachen07
+  version: "1.1.0"
 ---
 
 # Paper Reproduction Package
@@ -14,9 +18,17 @@ Produce everything a reader needs to strictly reproduce a paper's experiments, d
 | Local PDF path | Create work dir, copy the PDF in, extract text |
 | arXiv ID or URL (`2106.09685`, `arxiv.org/abs/...`, `arxiv.org/pdf/...`) | Run `python3 <skill-dir>/scripts/fetch_arxiv.py <id-or-url>` |
 
-`<skill-dir>` is this skill's directory. The script downloads the PDF **and** the LaTeX e-print source (hyperparameter tables are often only exact in the source) and extracts text into the work dir. If text extraction fails, read the PDF directly with the session's PDF reading support, in page-range chunks.
+`<skill-dir>` is this skill's directory. The script downloads the PDF **and** the LaTeX e-print source (hyperparameter tables are often only exact in the source) and extracts text into the work dir. If text extraction fails, read the PDF directly in page-range chunks — most agents read PDF pages natively; if yours cannot, work from whatever text and LaTeX source you have and note the limitation in the report.
 
 Work dir: `./repro-<paper-id>/` — paper-id is the arXiv ID, or the PDF filename without extension. Final deliverable: `./repro-report-<paper-id>.md` in the current directory. Everything else in the work dir is scaffolding; the report is the product.
+
+## Environment & fallbacks
+
+Agents differ in built-in tools. Use the best available and degrade gracefully — never skip a phase silently:
+
+- **Web access — required.** arXiv downloads, resource hunting, and link verification all need the network. Prefer built-in web-search / web-fetch tools when present (they let you judge page CONTENT, not just status codes); without them, use `curl` (`-sSL` for page content, `-sIL` for status and redirects). A status check alone can't tell a real page from a soft-404 or a login wall.
+- **PDF reading — optional.** If the environment reads PDFs natively, use it when text extraction fails. If not, rely on `paper.txt` and the LaTeX under `source/` — `fetch_arxiv.py` already falls back from `pdftotext` to `pypdf` on its own.
+- **Shell, Python 3, git — required.** Run the fetch script (stdlib only, no pip installs), unpack arXiv sources, and shallow-clone official repos.
 
 ## Workflow
 

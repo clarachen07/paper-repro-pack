@@ -13,7 +13,7 @@ Goal: for strict reproduction the reader needs (1) official code, (2) pretrained
 
 ## Verify every link this run
 
-Fetch each URL you intend to report — prefer the session's web-fetch tool so you can judge the page CONTENT, not just a status code (`curl -sIL` alone can't tell a real page from a soft-404 or a login wall). A repo that 404s, an empty HF org, a removed dataset page — those are ❌ (or 🔗 if a third-party mirror exists). Record the verification date in the report.
+Fetch each URL you intend to report — prefer the agent's built-in web-fetch capability so you can judge the page CONTENT, not just a status code; without one, `curl -sL` the page and confirm it isn't a soft-404 or a login wall (a bare `curl -sIL` status check can't tell). A repo that 404s, an empty HF org, a removed dataset page — those are ❌ (or 🔗 if a third-party mirror exists). Record the verification date in the report.
 
 ## Deep repo dive (code found — official first)
 
